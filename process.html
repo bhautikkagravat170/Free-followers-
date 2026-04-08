@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Processing</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .box {
+      background: rgba(0,0,0,0.7);
+      padding: 25px;
+      border-radius: 15px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .bar-bg {
+      width: 100%;
+      background: #333;
+      height: 20px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg,#00ff99,#00ccff);
+    }
+
+    #text {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    #msg {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    #finalmsg {
+      display: none;
+      margin-top: 15px;
+      color: #00ff99;
+      font-weight: bold;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Processing...</h2>
+
+  <div class="bar-bg">
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <p id="text">0%</p>
+  <p id="msg">Connecting...</p>
+
+  <div id="done"></div>
+  <div id="finalmsg"></div>
+</div>
+
+<script>
+window.onload = function(){
+
+  let i = 0;
+  let bar = document.getElementById("bar");
+  let text = document.getElementById("text");
+  let msg = document.getElementById("msg");
+  let done = document.getElementById("done");
+
+  let messages = [
+    "Connecting to server...",
+    "Fetching data...",
+    "Generating followers...",
+    "Almost done...",
+    "Finalizing..."
+  ];
+
+  let x = setInterval(function(){
+
+    i += 5;
+
+    bar.style.width = i + "%";
+    text.innerHTML = i + "%";
+
+    let index = Math.floor(i/20);
+    if(index < messages.length){
+      msg.innerHTML = messages[index];
+    }
+
+    if(i >= 100){
+      clearInterval(x);
+
+      msg.innerHTML = "⚠️ Final Step Required";
+
+      done.innerHTML = `
+        <br>
+        <div style="background:white;color:black;padding:15px;border-radius:10px;text-align:left;">
+          
+          <input type="checkbox" id="check" onclick="tick()">
+          <label for="check"> I'm not a robot</label>
+
+          <div id="loading" style="display:none;margin-top:10px;">
+            Checking...
+          </div>
+
+          <div id="verified" style="display:none;color:green;margin-top:10px;">
+            ✅ Verified
+          </div>
+
+        </div>
+      `;
+    }
+
+  }, 300);
+
+};
+
+// captcha function
+function tick(){
+
+  document.getElementById("loading").style.display = "block";
+
+  setTimeout(function(){
+
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("verified").style.display = "block";
+
+    // FINAL MESSAGE
+    setTimeout(function(){
+      document.getElementById("finalmsg").style.display = "block";
+      document.getElementById("finalmsg").innerHTML =
+        "🎉 Followers will be credited within 10 minutes ✅";
+    }, 1500);
+
+  }, 2000);
+
+}
+</script>
+
+</body>
+</html>

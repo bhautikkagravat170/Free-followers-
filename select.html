@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Select Followers</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .box {
+      background: rgba(0,0,0,0.7);
+      padding: 25px;
+      border-radius: 15px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(90deg,#00ff99,#00ccff);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Select Followers</h2>
+
+  <button onclick="go('1K')">1K Followers</button>
+<button onclick="go('2K')">2K Followers</button>
+<button onclick="go('5K')">5K Followers</button>
+<button onclick="go('10K')">10K Followers</button>
+<button onclick="go('20K')">20K Followers</button>
+</div>
+
+<script>
+function go(amount){
+  localStorage.setItem("followers", amount);
+  window.location.href = "process.html";
+}
+</script>
+
+</body>
+</html>
